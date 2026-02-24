@@ -1,0 +1,37 @@
+name: CD - Deploy
+
+on:
+  push:
+    branches:
+      - dev
+      - qa
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref_name == 'main' && 'Prod' || github.ref_name == 'qa' && 'QA' || 'Dev' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Deploy based on branch
+        run: |
+          if [ "${GITHUB_REF##*/}" == "dev" ]; then
+            echo "🚀 Deployed to Dev Environment"
+          elif [ "${GITHUB_REF##*/}" == "qa" ]; then
+            echo "🚀 Deployed to QA Environment"
+          elif [ "${GITHUB_REF##*/}" == "main" ]; then
+            echo "🚀 Deployed to Production Environment (manual approval required)"
+          fi

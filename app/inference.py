@@ -2,9 +2,13 @@ from pathlib import Path
 import pandas as pd
 
 # Load CSV once (relative path)
-CSV_PATH = Path(__file__).parent.parent / "data" / "movie-recommender-final.csv"
-GOLD_DF = pd.read_csv(CSV_PATH)
+CSV_PATH = (
+    Path(__file__).parent.parent 
+    / "data" 
+    / "movie-recommender-final.csv"
+)
 
+GOLD_DF = pd.read_csv(CSV_PATH)
 
 def recommend_for_user(user_id: int):
     """

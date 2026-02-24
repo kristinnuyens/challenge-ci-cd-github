@@ -1,4 +1,4 @@
-name: CD - Deploy
+name: CD Pipeline
 
 on:
   push:
@@ -10,8 +10,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_name == 'main' && 'Prod' || github.ref_name == 'qa' && 'QA' || 'Dev' }}
-
+    environment: ${{ github.ref_name }}  # maps branch name to environment
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -26,12 +25,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Deploy based on branch
+      - name: Run CI tests
         run: |
-          if [ "${GITHUB_REF##*/}" == "dev" ]; then
-            echo "🚀 Deployed to Dev Environment"
-          elif [ "${GITHUB_REF##*/}" == "qa" ]; then
-            echo "🚀 Deployed to QA Environment"
-          elif [ "${GITHUB_REF##*/}" == "main" ]; then
-            echo "🚀 Deployed to Production Environment (manual approval required)"
-          fi
+          pytest tests/ --maxfail=1 --disable-warnings -q
+
+      - name: Deploy to environment
+        run: |
+          echo "🚀 Deploying to ${{ github.ref_name }} environment"
+          # Simulated Streamlit deploy
+          echo "Streamlit would run here for ${{ github.ref_name }}"

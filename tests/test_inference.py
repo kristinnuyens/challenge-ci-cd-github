@@ -18,4 +18,7 @@ def test_recommend_user_type():
     """All titles should be strings"""
     recs = recommend_for_user(1)
     if not recs.empty:
-        assert all(isinstance(title, str) for title in recs["title"])
+        assert all(
+            isinstance(title, str)
+            for title in recs["title"]
+        )

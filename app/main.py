@@ -28,7 +28,10 @@ st.title(title)
 
 # 🟢 Dropdown for user IDs
 user_ids = sorted(GOLD_DF["userId"].unique())
-user_id = st.selectbox("Select User ID", options=user_ids)
+user_id = st.selectbox(
+    "Select User ID",
+    options=user_ids
+)
 
 
 # 🟢 Display recommendations
@@ -36,13 +39,18 @@ if st.button("Get Recommendations"):
     recs_df = recommend_for_user(user_id)
 
     if not recs_df.empty:
-        display_df = recs_df[["prediction", "title", "genres", "movieId"]].copy()
+        display_df = recs_df[
+            ["prediction", "title", "genres", "movieId"]
+        ].copy()
         # Round and format to 2 decimals
         display_df["prediction"] = display_df["prediction"].round(2).map(
             "{:.2f}".format
         )
         # Sort by prediction descending
-        display_df = display_df.sort_values(by="prediction", ascending=False)
+        display_df = display_df.sort_values(
+            by="prediction",
+            ascending=False
+        )
         # Reset index to remove extra ID column
         display_df = display_df.reset_index(drop=True)
         # Show in Streamlit

@@ -38,5 +38,3 @@ if st.button("Get Recommendations"):
         st.dataframe(display_df)
     else:
         st.write("No recommendations found for this user.")
-
-# test dev environment commit

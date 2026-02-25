@@ -1,7 +1,7 @@
 # CI/CD Pipeline Challenge
 
 ## Project Overview
-This project was a **GitHub Actions CI/CD challenge** designed to simulate a Dev → QA → Prod deployment for a sample Python Streamlit application. We started from the Movie Recommender (https://github.com/kristinnuyens/movie-recommender) we created earlier.
+This project was a GitHub Actions CI/CD challenge designed to simulate a Dev → QA → Prod deployment for a sample Python Streamlit application. We started from the Movie Recommender (https://github.com/kristinnuyens/movie-recommender) we created earlier.
 
 **Objectives:**
 - Practice CI/CD with GitHub Actions
@@ -28,7 +28,7 @@ This project was a **GitHub Actions CI/CD challenge** designed to simulate a Dev
 ## Step-by-Step Project Implementation
 
 ### 1. Set Up Python Environment
-* Ensured **Python 3.10** was used to avoid `imghdr` issues with Streamlit to create a virtual environment:
+* Ensured Python 3.10 was used to avoid `imghdr` issues with Streamlit to create a virtual environment:
 
     ```bash
     /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 -m venv venv
@@ -42,11 +42,9 @@ This project was a **GitHub Actions CI/CD challenge** designed to simulate a Dev
     pip install -r requirements.txt
     ```
 
----
-
 ### 2. Streamlit App Development
 
-* Created `main.py` to display **content per environment** (`dev`, `qa`, `prod`)
+* Created `main.py` to display content per environment (`dev`, `qa`, `prod`)
 * Added `inference.py` and `data/movie-recommender-final.csv` for sample recommendations
 * Implemented environment logic using:
 
@@ -63,7 +61,7 @@ This project was a **GitHub Actions CI/CD challenge** designed to simulate a Dev
 ### 3. Continuous Integration (CI)
 
 * Created `.github/workflows/ci.yml`
-* Configured to **run unit tests** in `tests/test_inference.py` on **pull requests → main**
+* Configured to run unit tests in `tests/test_inference.py` on pull requests → main
 * Confirmed CI ran successfully for test PRs
 
 ### 4. Continuous Delivery (CD)
@@ -77,12 +75,14 @@ This project was a **GitHub Actions CI/CD challenge** designed to simulate a Dev
     | deploy-qa   | `qa`   | QA          | Echo deployment log                           |
     | deploy-prod | `main` | Prod        | Manual approval required, echo deployment log |
 
-    ![Separate Jobs](assets/mermaid-diagram.png)
 * Verified CD pipeline logs for Dev, QA, and Prod
+  
   ![Different Environments](<assets/Screenshot 2026-02-25 at 09.45.26.png>)
-* Prod workflow triggered **manual approval step** as required
-  ![Prod Deployment Steps](<assets/Screenshot 2026-02-25 at 09.45.42.png>)
 
+  ![Prod Deployment Steps](<assets/Screenshot 2026-02-25 at 09.45.42.png>)
+  
+* Prod workflow triggered **manual approval step** as required
+  
   ![Deployment Log Showing Approval Step](<assets/Screenshot 2026-02-25 at 09.46.13.png>)
 
 ### 5. Local Testing
